@@ -27,7 +27,7 @@ int ReadInteger(std::string ReqValue, int min, int max) {
 
     bool NonZeroOccured = false;  // Used in the process of determining if the input
                                   //     starts with zero(es)
-    bool isNegative     = false;  // Used to determine if the input is negative
+    bool isNegative = false;      // Used to determine if the input is negative
                                       
     bool isGoodInput = true;      // Flag that remains true only if:
                                   //     + Something was input,
@@ -43,13 +43,12 @@ int ReadInteger(std::string ReqValue, int min, int max) {
     bool didFail = false;         // Used at the end to flag if the user had an invalid input
 
 // This loop will run until a valid input has been made.
-    while(!isValid)
-    {
+    while(!isValid) {
     // Asks the user for their input. The message depends on whether or not the user
     // has had an invalid input.
-        if (!didFail)
+        if (!didFail) {
             cout << ReqValue << ": ";
-        else {
+        } else {
             cout << "Invalid input! Please try again: ";
         }
        
@@ -62,16 +61,16 @@ int ReadInteger(std::string ReqValue, int min, int max) {
         conversion >> inputInt;
              
         // Checks if the integer is negative.
-        if (inputString[0] == '-')
+        if (inputString[0] == '-') {
             isNegative = true;
-
+        }
             // This loop analyzes all characters within the input string.
         for (int i = 0; i < inputString.size(); i++) {
             // If there are any spaces in the input string, the isGoodInput flag will be set
             // to false.
-            if (isspace(inputString[i]))
+            if (isspace(inputString[i])) {
                 isGoodInput = false;
-            
+            }
             // All digits in the input string is counted and analyzed, which will be used later
             // to check the input’s validity.
             if (isdigit(inputString[i])) {
@@ -82,38 +81,42 @@ int ReadInteger(std::string ReqValue, int min, int max) {
                 // found earlier in the input, the input would have to had started with
                 // zero(es), and the isGoodInput flag will be set to false, provided the input
                 // itself is not 0. The below if-statements will be used to check this.
-                if (inputString[i] != '0')
+                if (inputString[i] != '0') {
                     NonZeroOccured = true;
-                else if (!NonZeroOccured and inputString[i+1] != '0' and inputInt != 0)
+                } else if not (NonZeroOccured or inputString[i+1] == '0' or inputInt == 0) {
                     isGoodInput = false;
+                }
             }        
         }
 
         // If nothing was input or if the input as an integer is out of range, the isGoodInput flag
         // will be set to false.
-        if (inputString.empty() or inputInt < min or inputInt > max)
+        if (inputString.empty() or inputInt < min or inputInt > max) {
             isGoodInput = false;
+        }
        
         // If the # of numerical characters if not equal to the length of the input string, the
         // isGoodInput flag will be set to false. If the number is negative, the negative sign will
         // be accounted for.
         if (isNegative) {
-            if (digits + 1 != inputString.size())
+            if (digits + 1 != inputString.size()) {
                 isGoodInput = false;
-        } else if (digits != inputString.size())
+            }
+        } else if (digits != inputString.size()) {
             isGoodInput = false;
+        }
                 
             // If the isGoodInput flag is still true, then the input is valid and will be 
             // flagged as such, breaking the loop.
-            if (isGoodInput)
+            if (isGoodInput) {
                 isValid = true;
-
-                // Otherwise...
-            else {
+            // Otherwise...
+            } else {
             // If this is the user's first invalid input, the program will insert a line
             // for graphic reasons.
-            if (!didFail)
+            if (!didFail) {
                   cout << endl;
+            }
             
             // Resetting all variables and flagging didFail as true
             didFail = true;
